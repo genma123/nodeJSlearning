@@ -1,9 +1,12 @@
+// The original version of this comes from "Node.js, MongoDB, and AngularJS Web Development", an video book by Brad Dayley.
+// The orignial version of this can be found here:
+// http://www.informit.com/content/images/9780133929201/downloads/NodeMongoAngular_final_code.zip .
 var app = angular.module('myApp', []);
 app.controller('tableController', function($scope, $http) {
   $scope.words = [];
   $scope.contains = '';
-  $scope.newWord = '';
-  $scope.addedWord = '';
+  $scope.newWord = ''; // NEW
+  $scope.addedWord = ''; // NEW
   $scope.limit = 5;
   $scope.skip = 0;
   $scope.skipEnd = 0;
@@ -21,7 +24,7 @@ app.controller('tableController', function($scope, $http) {
                     sort:$scope.sortField,
                     direction:$scope.direction,
                     contains:$scope.contains,
-					newWord: $scope.newWord
+					newWord: $scope.newWord // added new word parameter
 					}})
     .success(function(data, status, headers, config) {
         $scope.words = data;
@@ -38,6 +41,7 @@ app.controller('tableController', function($scope, $http) {
     $scope.getWords();
   };
 
+  // new method for the Add button
   $scope.add = function(){
 	  if ($scope.newWord) {
 		  $scope.addedWord = "Added: " + $scope.newWord;
@@ -49,7 +53,7 @@ app.controller('tableController', function($scope, $http) {
   };
 
   $scope.next = function(){
-    // if($scope.words.length === $scope.limit){
+    // if($scope.words.length === $scope.limit){ // original, doesn't work because of different data types
     if($scope.words.length == $scope.limit){
       $scope.skip += parseInt($scope.limit);
       $scope.getWords();

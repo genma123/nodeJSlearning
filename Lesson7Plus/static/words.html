@@ -5,6 +5,11 @@
   <link rel="stylesheet" type="text/css" href="/css/styles.css" />
 </head>
 <body>
+	<!--
+// The original version of this comes from "Node.js, MongoDB, and AngularJS Web Development", an video book by Brad Dayley.
+// The orignial version of this can be found here:
+// http://www.informit.com/content/images/9780133929201/downloads/NodeMongoAngular_final_code.zip .
+	-->
 	<div ng-controller="tableController"><hr>
 		<input class="findButton" type="button" 
 		       value="Find Words" ng-click="find()" />
@@ -30,9 +35,11 @@
 		         ng-click="next()" />
 		  <label class="tableLabel">Words {{skip+1}} to {{skipEnd}}</label>
 		  <hr/>
+		  <!-- BEGIN NEW SECTION FOR ADDING A WORD -->
 		  <input class="pageButton" type="button" value="Add" ng-click="add()" />
 		  <label class="tableLabel">Add</label>
 		  <input class="tableInput" type="text" ng-model="newWord" />&nbsp;{{addedWord}}&nbsp;<br>
+		  <!-- END NEW SECTION FOR ADDING A WORD -->
 		  <hr/>
 		  <div id="tableContainer">
 		    <table>

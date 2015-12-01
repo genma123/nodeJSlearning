@@ -1,3 +1,6 @@
+// The original version of this comes from "Node.js, MongoDB, and AngularJS Web Development", an video book by Brad Dayley.
+// The orignial version of this can be found here:
+// http://www.informit.com/content/images/9780133929201/downloads/NodeMongoAngular_final_code.zip .
 var MongoClient = require('mongodb').MongoClient;
 
 var words = null;
@@ -6,6 +9,9 @@ MongoClient.connect("mongodb://localhost/", function(err, db) {
   // console.log("connecting and getting words");
 });
 
+// This has been modified to allow the option of addinga word.
+// If the "newWord" parameter is present, then the user is adding a word.
+// Either way, they will get a response in the same format.
 exports.getWords = function(req, res) {
 	var wo = undefined;
   if (words){
@@ -14,18 +20,24 @@ exports.getWords = function(req, res) {
 		  var newWord = req.query.newWord;
 		  req.query.newWord = '';
 		  wo = buildWordObj(newWord);
+		  // Having built the word object, it can be inserted into the collection.
+		  // Then the response is built as usual, by supplying findWords as
+		  // the callback
 		words.insert(wo, function(err, result) {
 			console.log("inserted " + wo.word);
-		  findWords(req, res);
+		  findWords(req, res); // findWords was refactored out
+								// to a separate function
 		});
 	  } else {
-		  findWords(req, res);
+		  findWords(req, res); // see previous comment.
 	  }
   } else {
     res.json(503, {});
   }
 };
 
+// This function is copied and pasted from Lesson 2 in which the data is originally
+// populated.
 function buildWordObj(word) {
 	var vowelArr = "aeiou";
 	var consonantArr = "bcdfghjklmnpqrstvwxyz";
@@ -73,6 +85,8 @@ function buildWordObj(word) {
 	return wordObj;
 }
 
+// This was the entire getWords functionality apart from handling
+// the error response, now it has been refactored out.
 var findWords = function(req, res) {
 	// console.log("in findWords");
 	words.find({ word: new RegExp(req.query.contains, 'i')},
