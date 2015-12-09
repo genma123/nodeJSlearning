@@ -28,6 +28,12 @@ exports.getWords = function(req, res) {
 		  findWords(req, res); // findWords was refactored out
 								// to a separate function
 		});
+	  } else if (req.query.toDelete) {
+		  var toDelete = req.query.toDelete;
+		  words.remove({word:toDelete}, function(err, result) {
+			console.log("deleted " + toDelete);
+		  findWords(req, res);
+		 });
 	  } else {
 		  findWords(req, res); // see previous comment.
 	  }

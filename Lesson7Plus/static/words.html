@@ -43,9 +43,9 @@
 		  <hr/>
 		  <div id="tableContainer">
 		    <table>
-		      <tr><th>Word</th><th>First</th><th>Last</th><th>Length</th>
-		      <th>Vowels</th><th>Consonants</th></tr>
+		      <tr><th>Select</th><th>Word</th><th>First</th><th>Last</th><th>Length</th><th>Vowels</th><th>Consonants</th></tr>
 		      <tr ng-repeat="word in words">
+			    <td><input type="radio" ng-model="$parent.selected" value="{{word.word}}" /></td>
 		        <td>{{word.word}}</td>
 		        <td>{{word.first}}</td>
 		        <td>{{word.last}}</td>
@@ -54,6 +54,9 @@
 		        <td>{{word.stats.consonants}}</td>
 		      </tr>
 		    </table>
+			<br/>
+		    <input class="pageButton" type="button" value="Delete" ng-click="deleteWord()" />
+			<!-- <Selected: {{selected}} -->
 		  </div>
 		</div>
 	</div>

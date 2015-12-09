@@ -15,6 +15,8 @@ app.controller('tableController', function($scope, $http) {
                        'Vowels', 'Consonants'];
   $scope.sortField ="Word";
   $scope.direction = "asc";
+  
+  $scope.selected;
 
   $scope.getWords = function(){
     $http({url: 'http://localhost:8081/words', method: "GET",
@@ -24,7 +26,8 @@ app.controller('tableController', function($scope, $http) {
                     sort:$scope.sortField,
                     direction:$scope.direction,
                     contains:$scope.contains,
-					newWord: $scope.newWord // added new word parameter
+					newWord: $scope.newWord, // added new word parameter
+					toDelete: $scope.selected
 					}})
     .success(function(data, status, headers, config) {
         $scope.words = data;
@@ -52,6 +55,13 @@ app.controller('tableController', function($scope, $http) {
 	  }
   };
 
+  $scope.deleteWord = function(){
+	  console.log("delete: " + $scope.selected);
+	  if ($scope.selected) {
+		$scope.getWords();
+	  }
+  }
+  
   $scope.next = function(){
     // if($scope.words.length === $scope.limit){ // original, doesn't work because of different data types
     if($scope.words.length == $scope.limit){
