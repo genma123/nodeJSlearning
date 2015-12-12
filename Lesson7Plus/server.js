@@ -5,9 +5,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var app = express();
+
+// Must set PORT environment variable for this to work
+app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser());
 
 require('./routes')(app);
 
-// Must set PORT environment variable for this to work
-app.listen(process.env.PORT);
+app.listen(app.get('port'));

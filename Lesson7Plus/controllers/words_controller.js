@@ -4,7 +4,7 @@
 var MongoClient = require('mongodb').MongoClient;
 
 var words = null;
-MongoClient.connect("mongodb://localhost/", function(err, db) {
+MongoClient.connect((process.env.MONGOLAB_URI || "mongodb://localhost/"), function(err, db) {
   words = db.db("words").collection("word_stats");
   // console.log("connecting and getting words");
 });
