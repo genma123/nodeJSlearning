@@ -19,7 +19,7 @@ app.controller('tableController', function($scope, $http) {
   $scope.selected;
 
   $scope.getWords = function(){
-    $http({url: 'http://localhost:8081/words', method: "GET",
+    $http({url: '/words', method: "GET",
            params:{ limit:$scope.limit,
                     skip:$scope.skip,
                     //+ add sort field and direction to query parameters

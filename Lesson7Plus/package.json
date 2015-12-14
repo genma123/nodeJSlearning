@@ -1,5 +1,5 @@
 {
-  "name": "Lesson7Plus",
+  "name": "lesson-7-plus",
   "version": "1.0.0",
   "description": "",
   "main": "routes.js",
@@ -7,9 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT",
   "author": "",
-  "license": "ISC",
   "engines": {
     "node": "0.12.7"
   },

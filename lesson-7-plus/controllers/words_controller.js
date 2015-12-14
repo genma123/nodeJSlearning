@@ -5,7 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 
 var words = null;
 MongoClient.connect((process.env.MONGOLAB_URI || "mongodb://localhost/"), function(err, db) {
-  words = db.db("words").collection("word_stats");
+  words = db/*.db("words")*/.collection("word_stats");
   // console.log("connecting and getting words");
 });
 
@@ -94,17 +94,25 @@ function buildWordObj(word) {
 // This was the entire getWords functionality apart from handling
 // the error response, now it has been refactored out.
 var findWords = function(req, res) {
-	// console.log("in findWords");
+	console.log("in findWords, URI is " + process.env.MONGOLAB_URI);
 	words.find({ word: new RegExp(req.query.contains, 'i')},
 			   { limit: req.query.limit,
 				 skip: req.query.skip,
 				 //+ add sort to query
 				 sort: getSortObj(req)},
-	  function(err, cursor){
-		cursor.toArray(function(err, wordsArr){
-		  res.json(wordsArr);
-		});
-	});
+		function(err, cursor){
+		  if (err) {
+			  console.log("ERROR!!");
+			  res.json(503, {});
+		  } else {
+			cursor.toArray(function(err, wordsArr){
+							  console.log("FIND SUCCESSFUL!!");
+								res.json(wordsArr);
+							}
+					); // end call to toArray
+		  }
+		}
+	); // end call to words.find
 };
 
 //+^ map request sort fields to document fields
